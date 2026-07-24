@@ -6,7 +6,6 @@ import api from "../api/axios";
 
 function Category() {
   const { id } = useParams();
-
   const [data, setData] = useState([]);
 
   const { addToCart } = useContext(CartContext);
@@ -35,7 +34,7 @@ function Category() {
 
             {data.length > 0
               ? data[0].category.title
-              : "Category"}
+              : "Loading ..."}
 
           </h1>
 
