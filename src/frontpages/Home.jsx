@@ -25,7 +25,7 @@ function Home() {
   useEffect(() => {
     datafetch();
   }, [search]);
-  const optimizedImage = a.image.replace(
+  const optimizedImage = data.image.replace(
     "/upload/",
     "/upload/f_auto,q_auto,w_500/"
   );
