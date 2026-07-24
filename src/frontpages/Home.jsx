@@ -25,10 +25,7 @@ function Home() {
   useEffect(() => {
     datafetch();
   }, [search]);
-  const optimizedImage = data.image.replace(
-    "/upload/",
-    "/upload/f_auto,q_auto,w_500/"
-  );
+
   return (
     <FrontendLayout>
 
@@ -71,64 +68,61 @@ function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {data.map((a) => (
+          {data.map((a) => {
+            const optimizedImage = a.image
+              ? a.image.replace(
+                "/upload/",
+                "/upload/f_auto,q_auto,w_500/"
+              )
+              : "";
 
-            <div
-              key={a._id}
-              className="group"
-            >
+            return (
+              <div
+                key={a._id}
+                className="group"
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-xl bg-gray-100">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src={optimizedImage}
+                    alt={a.title}
+                    className="w-full h-80 object-cover group-hover:scale-105 transition duration-500"
+                  />
 
-              {/* Image */}
-
-              <div className="relative overflow-hidden rounded-xl bg-gray-100">
-
-                <img
-                  loading='lazy'
-                  decoding='async'
-                  src={optimizedImage}
-                  alt={a.title}
-                  className="w-full h-80 object-cover group-hover:scale-105 transition duration-500"
-                />
-
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
-
-              </div>
-
-              {/* Info */}
-
-              <div className="pt-5">
-
-                <h2 className="text-lg font-semibold text-gray-300 line-clamp-1">
-                  {a.title}
-                </h2>
-
-                <p className="text-2xl font-bold mt-2">
-                  Rs. {a.price}
-                </p>
-
-                <div className="flex gap-3 mt-5">
-
-                  <button
-                    onClick={() => addToCart(a._id)}
-                    className="flex-1 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
-                  >
-                    Add
-                  </button>
-
-                  <Link
-                    to={`/product/${a._id}`}
-                    className="flex-1 text-center py-3 rounded-lg border border-black hover:bg-black hover:text-white transition"
-                  >
-                    Details
-                  </Link>
-
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
                 </div>
 
+                {/* Info */}
+                <div className="pt-5">
+                  <h2 className="text-lg font-semibold text-gray-300 line-clamp-1">
+                    {a.title}
+                  </h2>
+
+                  <p className="text-2xl font-bold mt-2">
+                    Rs. {a.price}
+                  </p>
+
+                  <div className="flex gap-3 mt-5">
+                    <button
+                      onClick={() => addToCart(a._id)}
+                      className="flex-1 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
+                    >
+                      Add
+                    </button>
+
+                    <Link
+                      to={`/product/${a._id}`}
+                      className="flex-1 text-center py-3 rounded-lg border border-black hover:bg-black hover:text-white transition"
+                    >
+                      Details
+                    </Link>
+                  </div>
+                </div>
               </div>
-
-            </div>
-
-          ))}
+            );
+          })}
 
         </div>
 
